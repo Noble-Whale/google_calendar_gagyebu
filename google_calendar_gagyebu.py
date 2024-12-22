@@ -235,6 +235,8 @@ def make_ical_file(filename, calendar_obj_summary_dict, start_date, end_date):
 
         write_ics_line(f, start_date, end_date_day_after
                        , "(금융-가계부-집계) (" + start_date[-6:] + "~" + end_date[-6:] + ") "
+                       + ("" if ("★" or "☆") in calendar_obj.CATEGORY else #총입출계, 고정입출계 등 카테고리에 ★, ☆ 있는 놈들 제외하고
+                        ("수입_" if calendar_obj.MONEY >= 0 else "지출_")) #카테고리 앞에 수입인지 지출인지 표기 241222
                        + calendar_obj.CATEGORY + " " #카테고리
                        + ("+" if calendar_obj.MONEY >= 0 else "") #부호
                        + str(format( calendar_obj.MONEY, ",")) #금액
